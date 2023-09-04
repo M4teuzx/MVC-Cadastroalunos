@@ -1,0 +1,70 @@
+<div class="container mt-5">
+    <h1 class="mb-4">Cadastro de alunos</h1>
+
+    <!-- cadastrar alunos -->
+    <form action="/aluno" method="POST" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card p-3 mb-3">
+                    <h4 class="mb-3">Informações do Aluno</h4>
+                    <div class="form-group">
+                        <label for="nome">Nome do aluno</label>
+                        <input type="text" name="nome" class="form-control mb-2" id="nome" placeholder="Digite o nome do aluno" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="numero_matricula">Número da Matrícula</label>
+                        <input type="text" name="numero_matricula" class="form-control mb-2" id="numero_matricula" placeholder="Digite o número da matrícula" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rg">RG</label>
+                        <input type="text" name="rg" class="form-control mb-2" id="rg" placeholder="Digite o RG do aluno" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cpf">CPF</label>
+                        <input type="text" name="cpf" class="form-control mb-2" id="cpf" placeholder="Digite o CPF do aluno" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endereco">Endereço</label>
+                        <input type="text" name="endereco" class="form-control mb-2" id="endereco" placeholder="Digite o endereço do aluno" required>
+                    </div>
+                    <div class="form-group ">
+                        <label for="filetoupload">Foto do Aluno</label>
+                        <div class="custom-file mt-2">
+                            <input type="file" name="filetoupload" class="custom-file-input" id="filetoupload" required>
+                            <label class="custom-file-label" for="filetoupload"></label>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-success">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- mostrar alunos -->
+    <div class="row mt-5">
+        <% alunos.forEach(aluno => { %>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="foto-aluno">
+                    <img src="/uploads/<%- aluno.foto %>" class="card-img-top foto-aluno" alt="Foto do Aluno">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><%- aluno.nome %></h5>
+                        <p class="card-text"><strong>Número da Matrícula:</strong> <%- aluno.numero_matricula %></p>
+                        <p class="card-text"><strong>RG:</strong> <%- aluno.rg %></p>
+                        <p class="card-text"><strong>CPF:</strong> <%- aluno.cpf %></p>
+                        <p class="card-text"><strong>Endereço:</strong> <%- aluno.endereco %></p>
+                        <a href="/aluno/edit/<%- aluno.id %>" class="btn btn-primary">
+                            <i class="bi-pencil-square"></i> Editar
+                        </a>
+                        <a href="/aluno/delete/<%- aluno.id %>" class="btn btn-danger">
+                            <i class="bi-x-circle"></i> Excluir
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
