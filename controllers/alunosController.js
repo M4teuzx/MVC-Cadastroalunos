@@ -9,8 +9,10 @@ async function getAlunos(req, res) {
 async function addAluno(req, res) {
     const { nome, numero_matricula, rg, cpf, endereco } = req.body;
     const foto = req.file.originalname;
+    const usuario_id = req.session.usuario.id;
+    // tenho recuperação de biologia pra estudar 🥸 
 
-    const aluno = new Aluno(null, nome, numero_matricula, rg, cpf, endereco, foto);
+    const aluno = new Aluno(null, nome, numero_matricula, rg, cpf, endereco, foto, usuario_id );
     await aluno.salvar();
     alunos.push(aluno);
     res.redirect('/aluno');
@@ -25,7 +27,7 @@ async function deleteAluno(req, res) {
 }
 
 function updateAluno(req, res) {
-    const { id, nome, numero_matricula, rg, cpf, endereco, foto } = req.body;
+    const { id, nome, numero_matricula, rg, cpf, endereco, foto, usuario_id } = req.body;
     alunos = alunos.map(aluno => {
         if (aluno.id == id) {
             aluno.nome = nome;
@@ -34,6 +36,7 @@ function updateAluno(req, res) {
             aluno.cpf = cpf;
             aluno.endereco = endereco;
             aluno.foto = foto;
+            aluno.usuario_id = usuario_id;;
         }
         return aluno;
     });

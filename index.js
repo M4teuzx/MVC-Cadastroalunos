@@ -64,10 +64,6 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
     res.render('home');
 });
-
-app.get('/cadastro', (req, res) => {
-    res.render('cadastro');
-  });
   
 app.get('/login', (req, res) => {
     app.set('layout', './layouts/default/login');
