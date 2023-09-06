@@ -19,7 +19,6 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true })); 
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'public/uploads/') // Diretório onde os arquivos serão salvos
@@ -60,11 +59,6 @@ app.use((req, res, next) => {
 });
 
 // Rotas
-
-app.get('/', (req, res) => {
-    res.render('home');
-});
-  
 app.get('/login', (req, res) => {
     app.set('layout', './layouts/default/login');
     usuarioController.login(req, res);
@@ -83,15 +77,17 @@ app.get('/aluno/delete/:id', (req, res) => {
 });
 
 app.get('/aluno/edit/:id', (req, res) => {
-    alunosController.updateAluno(req, res);
+    alunosController.editAluno(req, res);
 });
 
 app.post('/aluno', upload.single('filetoupload'), alunosController.addAluno);
 app.get('/aluno', alunosController.getAlunos); 
 app.post('/aluno', alunosController.addAluno); 
 app.delete('/aluno', alunosController.deleteAluno);
-app.put('/aluno', alunosController.updateAluno);
+app.put('/aluno/edit', alunosController.updateAluno);
+//edição não está funcionando :))))))))))))
 
+// EU ODEIO VIVER EU ODEIO VIVER QUERO MORRER ME JOGAR DE 3 PONTES E PULAR DE 74 PRÉDIOS
 
 app.listen(port, () => { 
     console.log(`Servidor rodando em http://localhost:${port}`);

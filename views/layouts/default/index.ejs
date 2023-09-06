@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-     <%- include('./header') %>
+     <%- include('../../header') %>
     <nav></nav>
     <main><%- body %></main>
     <div class="col-md-12 mt-5 mb-2 text-center">
@@ -17,4 +17,26 @@
       </div> 
     <div class="footer-background"></div>  
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const campoPesquisa = document.getElementById('pesquisaAluno');
+        const cardsAlunos = document.querySelectorAll('.card');
+  
+        campoPesquisa.addEventListener('keyup', function() {
+            const termoPesquisa = campoPesquisa.value.toLowerCase();
+  
+            cardsAlunos.forEach(card => {
+                const nomeAluno = card.querySelector('.card-title').textContent.toLowerCase();
+                const cardParent = card.closest('.col-md-4.mb-4'); //remover e não só esconder
+  
+                if (nomeAluno.includes(termoPesquisa)) {
+                    cardParent.style.display = 'block';
+                } else {
+                    cardParent.style.display = 'none'; 
+                }
+            });
+        });
+    });
+  </script>
+  
 </html>

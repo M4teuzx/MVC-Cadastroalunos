@@ -1,0 +1,24 @@
+<form action="/aluno/edit/<%- aluno.id %>" method="POST">
+    <input type="hidden" name="id" value="<%= aluno.id %>">
+    <div class="form-group">
+        <label for="nome">Nome do aluno</label>
+        <input type="text" name="nome" class="form-control" id="nome" value="<%= aluno.nome %>" required>
+    </div>
+    <div class="form-group">
+        <label for="numero_matricula">Número de matrícula</label>
+        <input type="text" name="numero_matricula" class="form-control" id="numero_matricula" value="<%= aluno.numero_matricula %>" required>
+    </div>
+    <div class="form-group">
+        <label for="rg">RG</label>
+        <input type="text" name="rg" class="form-control" id="rg" value="<%= aluno.rg %>" required>
+    </div>
+    <div class="form-group">
+        <label for="cpf">CPF</label>
+        <input type="text" name="cpf" class="form-control" id="cpf" value="<%= aluno.cpf %>" required>
+    </div>
+    <div class="form-group">
+        <label for="endereco">Endereço</label>
+        <input type="text" name="endereco" class="form-control" id="endereco" value="<%= aluno.endereco %>" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>

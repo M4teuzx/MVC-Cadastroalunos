@@ -1,8 +1,7 @@
 const Aluno = require('../models/alunoModel');
-let alunos = [];
 
 async function getAlunos(req, res) {
-    alunos = await Aluno.listarAlunos();
+    const alunos = await Aluno.listarAlunos();
     res.render('alunos', { alunos });
 }
 
@@ -10,11 +9,9 @@ async function addAluno(req, res) {
     const { nome, numero_matricula, rg, cpf, endereco } = req.body;
     const foto = req.file.originalname;
     const usuario_id = req.session.usuario.id;
-    // tenho recuperação de biologia pra estudar 🥸 
 
-    const aluno = new Aluno(null, nome, numero_matricula, rg, cpf, endereco, foto, usuario_id );
+    const aluno = new Aluno(null, nome, numero_matricula, rg, cpf, endereco, foto, usuario_id);
     await aluno.salvar();
-    alunos.push(aluno);
     res.redirect('/aluno');
 }
 
@@ -26,21 +23,47 @@ async function deleteAluno(req, res) {
     }
 }
 
-function updateAluno(req, res) {
+async function updateAluno(req, res) {
     const { id, nome, numero_matricula, rg, cpf, endereco, foto, usuario_id } = req.body;
-    alunos = alunos.map(aluno => {
-        if (aluno.id == id) {
-            aluno.nome = nome;
-            aluno.numero_matricula = numero_matricula;
-            aluno.rg = rg;
-            aluno.cpf = cpf;
-            aluno.endereco = endereco;
-            aluno.foto = foto;
-            aluno.usuario_id = usuario_id;;
-        }
-        return aluno;
-    });
-    res.redirect('/aluno');
+
+    const aluno = await Aluno.getById(id);
+    if (!aluno) {
+        res.redirect('/aluno');
+        return;
+    }
+
+    aluno.nome = nome;
+    aluno.numero_matricula = numero_matricula;
+    aluno.rg = rg;
+    aluno.cpf = cpf;
+    aluno.endereco = endereco;
+    aluno.foto = foto;
+    aluno.usuario_id = usuario_id;
+
+    if (await aluno.update()) {
+        res.redirect('/aluno');
+    } else {
+        res.redirect(`/aluno/edit/${id}`);
+    }
 }
 
-module.exports = { getAlunos, addAluno, deleteAluno, updateAluno };
+
+
+async function editAluno(req, res) {
+    const alunoId = req.params.id;
+
+    const aluno = await Aluno.getById(alunoId);
+    console.log('ID recebido:', alunoId);
+    console.log('Aluno encontrado:', aluno);
+
+    if (!aluno) {
+        res.redirect('/aluno');
+    } else {
+        res.render('edit', { aluno });
+    }
+}
+
+
+
+module.exports = { getAlunos, addAluno, deleteAluno, updateAluno, editAluno };
+

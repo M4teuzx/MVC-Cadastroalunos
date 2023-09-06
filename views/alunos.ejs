@@ -42,9 +42,13 @@
             </div>
         </div>
     </form>
+    
 
     <!-- mostrar alunos -->
     <h1 class="mb-4 mt-5 text-center">Alunos cadastrados:</h1>
+    <form class="d-flex justify-content-center custom-search-form" role="search">
+        <input class="form-control" type="search" id="pesquisaAluno" placeholder="Pesquisar por nome" aria-label="Pesquisar">
+    </form>  
     <div class="row row-style mt-5 bg-light p-5 rounded">
         <% alunos.forEach(aluno => { %>
             <div class="col-md-4 mb-4">
@@ -60,6 +64,9 @@
                         <p class="card-text"><strong>Endereço:</strong> <%- aluno.endereco %></p>
                         <a href="/aluno/delete/<%- aluno.id %>" class="btn btn-danger">
                             <i class="bi bi-x-circle"></i> Excluir
+                        </a>
+                        <a href="/aluno/edit/<%- aluno.id %>" class="btn btn-primary">
+                            <i class="bi bi-pencil"></i> Editar
                         </a>
                     </div>
                 </div>
